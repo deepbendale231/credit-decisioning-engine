@@ -1,0 +1,29 @@
+[project]
+name = "loan-decisioning-engine"
+version = "2.0.0"
+description = "Eligibility rules + calibrated default-risk model + policy engine with SHAP reason codes, an API, drift monitoring and a fairness audit"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+
+[tool.ruff]
+line-length = 130
+target-version = "py310"
+extend-exclude = ["notebooks", ".venv"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
+ignore = ["E501", "E731", "B905", "RUF005", "RUF007", "RUF012", "SIM108", "B008"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["B011"]
+"app/*" = ["E402"]
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["src/__init__.py"]
+
+[tool.coverage.report]
+fail_under = 90
+show_missing = true
+exclude_lines = ["pragma: no cover", "if __name__ == .__main__.:"]
