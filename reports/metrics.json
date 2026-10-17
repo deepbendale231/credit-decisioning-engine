@@ -1,0 +1,634 @@
+{
+  "meta": {
+    "data_source": "home_credit",
+    "resume_safe": true,
+    "n_rows": 307511,
+    "n_train": 184506,
+    "n_val": 61502,
+    "n_test": 61503,
+    "default_rate_overall": 0.0807,
+    "seed": 42,
+    "model_version": "pd-xgb-20261017-1049-home_credit",
+    "git_sha": null,
+    "generated_at": "2026-10-17T10:49:59+00:00",
+    "versions": {
+      "python": "3.11.15",
+      "xgboost": "3.2.0",
+      "sklearn": "1.9.1",
+      "pandas": "3.0.6"
+    }
+  },
+  "data_quality": {
+    "n_rows": 307511,
+    "default_rate": 0.0807,
+    "duplicate_ids": 0,
+    "missing_rate": {
+      "AMT_INCOME_TOTAL": 0.0,
+      "AMT_CREDIT": 0.0,
+      "AMT_ANNUITY": 0.0,
+      "AMT_GOODS_PRICE": 0.0009,
+      "DAYS_BIRTH": 0.0,
+      "DAYS_EMPLOYED": 0.0,
+      "EXT_SOURCE_1": 0.5638,
+      "EXT_SOURCE_2": 0.0021,
+      "EXT_SOURCE_3": 0.1983
+    },
+    "employed_placeholder_share": 0.1801,
+    "range_violations": {
+      "days_birth_not_negative": 0,
+      "negative_income": 0,
+      "ext_source_outside_0_1": 0
+    },
+    "gender_values": {
+      "F": 202448,
+      "M": 105059,
+      "XNA": 4
+    }
+  },
+  "funnel": {
+    "total_rows": 1670214,
+    "total_rows_k": 1670.2,
+    "status_pct": {
+      "Approved": 62.1,
+      "Canceled": 18.9,
+      "Refused": 17.4,
+      "Unused offer": 1.6
+    },
+    "unused_share_of_offers_pct": 2.5,
+    "findings": [
+      "By client type, refusal rate ranges from 4.8% (New, n=301,363) to 21.2% (Repeater, n=1,231,261).",
+      "By contract type, refusal rate ranges from 10.3% (Consumer loans, n=729,151) to 25.6% (Revolving loans, n=193,164)."
+    ]
+  },
+  "models": {
+    "comparison": {
+      "logistic_regression": {
+        "auc_val": 0.7349,
+        "auc_test": 0.74
+      },
+      "xgboost_unconstrained": {
+        "auc_val": 0.758,
+        "auc_test": 0.7613
+      },
+      "xgboost_monotone_tuned": {
+        "auc_val": 0.7596,
+        "auc_test": 0.763
+      }
+    },
+    "tuning_trials": [
+      {
+        "params": {},
+        "val_auc": 0.7593
+      },
+      {
+        "params": {
+          "max_depth": 3,
+          "learning_rate": 0.08,
+          "min_child_weight": 10,
+          "subsample": 0.8,
+          "colsample_bytree": 0.8,
+          "reg_lambda": 10.0
+        },
+        "val_auc": 0.758
+      },
+      {
+        "params": {
+          "max_depth": 3,
+          "learning_rate": 0.08,
+          "min_child_weight": 3,
+          "subsample": 0.7,
+          "colsample_bytree": 0.8,
+          "reg_lambda": 10.0
+        },
+        "val_auc": 0.7584
+      },
+      {
+        "params": {
+          "max_depth": 5,
+          "learning_rate": 0.08,
+          "min_child_weight": 10,
+          "subsample": 0.9,
+          "colsample_bytree": 0.8,
+          "reg_lambda": 1.0
+        },
+        "val_auc": 0.7593
+      },
+      {
+        "params": {
+          "max_depth": 6,
+          "learning_rate": 0.05,
+          "min_child_weight": 10,
+          "subsample": 0.8,
+          "colsample_bytree": 0.6,
+          "reg_lambda": 10.0
+        },
+        "val_auc": 0.7595
+      },
+      {
+        "params": {
+          "max_depth": 6,
+          "learning_rate": 0.05,
+          "min_child_weight": 5,
+          "subsample": 0.9,
+          "colsample_bytree": 0.8,
+          "reg_lambda": 2.0
+        },
+        "val_auc": 0.7594
+      },
+      {
+        "params": {
+          "max_depth": 4,
+          "learning_rate": 0.03,
+          "min_child_weight": 3,
+          "subsample": 0.8,
+          "colsample_bytree": 1.0,
+          "reg_lambda": 1.0
+        },
+        "val_auc": 0.7589
+      },
+      {
+        "params": {
+          "max_depth": 6,
+          "learning_rate": 0.08,
+          "min_child_weight": 5,
+          "subsample": 0.8,
+          "colsample_bytree": 0.6,
+          "reg_lambda": 10.0
+        },
+        "val_auc": 0.7591
+      },
+      {
+        "params": {
+          "max_depth": 5,
+          "learning_rate": 0.05,
+          "min_child_weight": 3,
+          "subsample": 0.9,
+          "colsample_bytree": 0.8,
+          "reg_lambda": 10.0
+        },
+        "val_auc": 0.7596
+      },
+      {
+        "params": {
+          "max_depth": 5,
+          "learning_rate": 0.08,
+          "min_child_weight": 20,
+          "subsample": 0.7,
+          "colsample_bytree": 0.8,
+          "reg_lambda": 2.0
+        },
+        "val_auc": 0.758
+      },
+      {
+        "params": {
+          "max_depth": 4,
+          "learning_rate": 0.03,
+          "min_child_weight": 10,
+          "subsample": 0.7,
+          "colsample_bytree": 1.0,
+          "reg_lambda": 5.0
+        },
+        "val_auc": 0.7585
+      },
+      {
+        "params": {
+          "max_depth": 6,
+          "learning_rate": 0.08,
+          "min_child_weight": 5,
+          "subsample": 0.9,
+          "colsample_bytree": 0.8,
+          "reg_lambda": 2.0
+        },
+        "val_auc": 0.7593
+      }
+    ],
+    "best_params": {
+      "max_depth": 5,
+      "learning_rate": 0.05,
+      "min_child_weight": 3,
+      "subsample": 0.9,
+      "colsample_bytree": 0.8,
+      "reg_lambda": 10.0
+    },
+    "monotone_features": [
+      "CREDIT_INCOME_RATIO",
+      "ANNUITY_INCOME_RATIO",
+      "EXT_SOURCE_1",
+      "EXT_SOURCE_2",
+      "EXT_SOURCE_3",
+      "EXT_SOURCE_MEAN"
+    ]
+  },
+  "discrimination_test": {
+    "auc": 0.763,
+    "gini": 0.526,
+    "ks": 0.3919,
+    "pr_auc": 0.2469,
+    "brier": 0.0676,
+    "log_loss": 0.2448,
+    "auc_ci95": [
+      0.7556,
+      0.7693
+    ]
+  },
+  "calibration": {
+    "platt": {
+      "a": 0.9443634748458862,
+      "b": -0.11714493483304977
+    },
+    "ece_uncalibrated": 0.0029,
+    "ece_calibrated": 0.0021
+  },
+  "deciles": [
+    {
+      "decile": 1,
+      "n": 6151,
+      "avg_pd": 0.2758,
+      "default_rate": 0.2813,
+      "lift": 3.484,
+      "cum_capture": 0.3484
+    },
+    {
+      "decile": 2,
+      "n": 6150,
+      "avg_pd": 0.1453,
+      "default_rate": 0.145,
+      "lift": 1.7967,
+      "cum_capture": 0.5281
+    },
+    {
+      "decile": 3,
+      "n": 6150,
+      "avg_pd": 0.1016,
+      "default_rate": 0.1023,
+      "lift": 1.2669,
+      "cum_capture": 0.6548
+    },
+    {
+      "decile": 4,
+      "n": 6151,
+      "avg_pd": 0.0762,
+      "default_rate": 0.0797,
+      "lift": 0.9868,
+      "cum_capture": 0.7535
+    },
+    {
+      "decile": 5,
+      "n": 6150,
+      "avg_pd": 0.059,
+      "default_rate": 0.0595,
+      "lift": 0.7372,
+      "cum_capture": 0.8272
+    },
+    {
+      "decile": 6,
+      "n": 6150,
+      "avg_pd": 0.0466,
+      "default_rate": 0.0489,
+      "lift": 0.6063,
+      "cum_capture": 0.8878
+    },
+    {
+      "decile": 7,
+      "n": 6151,
+      "avg_pd": 0.037,
+      "default_rate": 0.0333,
+      "lift": 0.4128,
+      "cum_capture": 0.9291
+    },
+    {
+      "decile": 8,
+      "n": 6150,
+      "avg_pd": 0.0287,
+      "default_rate": 0.0273,
+      "lift": 0.3384,
+      "cum_capture": 0.9629
+    },
+    {
+      "decile": 9,
+      "n": 6150,
+      "avg_pd": 0.0209,
+      "default_rate": 0.0177,
+      "lift": 0.2195,
+      "cum_capture": 0.9849
+    },
+    {
+      "decile": 10,
+      "n": 6150,
+      "avg_pd": 0.0117,
+      "default_rate": 0.0122,
+      "lift": 0.1511,
+      "cum_capture": 1.0
+    }
+  ],
+  "policy": {
+    "t1": 0.1954,
+    "t2": 0.2666,
+    "rules": {
+      "min_age": 21,
+      "max_age": 60,
+      "min_income": 25000.0,
+      "max_annuity_income": 0.5,
+      "max_credit_income": 10.0
+    }
+  },
+  "comparison": {
+    "target_default_rate_val": 0.0641,
+    "target_reduction": 0.25,
+    "current_rules_only": {
+      "approval_rate": 0.8556,
+      "default_rate_among_approved": 0.0856,
+      "n_approved": 52623,
+      "approval_rate_ci95": [
+        0.8524,
+        0.8584
+      ],
+      "default_rate_ci95": [
+        0.0833,
+        0.0885
+      ]
+    },
+    "tuned_rules_only_same_target": {
+      "approval_rate": 0.7347,
+      "default_rate_among_approved": 0.063,
+      "n_approved": 45188,
+      "config": {
+        "min_age": 21,
+        "max_age": 60,
+        "min_income": 25000.0,
+        "max_annuity_income": 0.4,
+        "max_credit_income": 10.0,
+        "min_ext_score": 0.33
+      },
+      "target_reached_on_validation": true,
+      "validation_default_rate": 0.0641,
+      "approval_rate_ci95": [
+        0.7305,
+        0.7385
+      ],
+      "default_rate_ci95": [
+        0.0607,
+        0.0653
+      ]
+    },
+    "tuned_rules_only_same_approval": {
+      "approval_rate": 0.7769,
+      "default_rate_among_approved": 0.0689,
+      "n_approved": 47784,
+      "config": {
+        "min_age": 21,
+        "max_age": 60,
+        "min_income": 25000.0,
+        "max_annuity_income": 0.5,
+        "max_credit_income": 10.0,
+        "min_ext_score": 0.29
+      },
+      "matched_validation_approval_rate": 0.773,
+      "approval_rate_ci95": [
+        0.7729,
+        0.7803
+      ],
+      "default_rate_ci95": [
+        0.0666,
+        0.0716
+      ]
+    },
+    "rules_plus_ml": {
+      "approval_rate": 0.7731,
+      "default_rate_among_approved": 0.063,
+      "n_approved": 47549,
+      "approval_rate_ci95": [
+        0.7695,
+        0.7762
+      ],
+      "default_rate_ci95": [
+        0.0609,
+        0.0654
+      ]
+    },
+    "approval_uplift_vs_tuned_rules_pts": {
+      "point": 3.84,
+      "ci95": [
+        3.63,
+        4.05
+      ]
+    },
+    "default_cut_vs_tuned_rules_same_approval_pts": {
+      "point": 0.59,
+      "ci95": [
+        0.47,
+        0.7
+      ]
+    },
+    "default_rate_cut_vs_current_pts": {
+      "point": 2.26,
+      "ci95": [
+        2.11,
+        2.39
+      ]
+    }
+  },
+  "decision_mix_test": {
+    "APPROVE": 0.7731,
+    "REFER": 0.0426,
+    "DECLINE": 0.1843
+  },
+  "rules_insight": {
+    "over_60_share": 0.1152,
+    "over_60_default_rate": 0.0481,
+    "in_band_default_rate": 0.085,
+    "overall_default_rate": 0.0807
+  },
+  "fairness": {
+    "rules_plus_ml": {
+      "gender": {
+        "groups": [
+          {
+            "group": "F",
+            "n": 40345,
+            "approval_rate": 0.7596,
+            "default_rate_among_approved": 0.0563,
+            "observed_default_rate_all": 0.0696,
+            "mean_pd": 0.0737,
+            "auc": 0.7618
+          },
+          {
+            "group": "M",
+            "n": 21158,
+            "approval_rate": 0.7989,
+            "default_rate_among_approved": 0.0752,
+            "observed_default_rate_all": 0.102,
+            "mean_pd": 0.0928,
+            "auc": 0.7544
+          }
+        ],
+        "gap_pts": 3.93,
+        "adverse_impact_ratio": 0.951,
+        "gap_pts_ci95": [
+          3.24,
+          4.57
+        ]
+      },
+      "age_band": {
+        "groups": [
+          {
+            "group": "21-30",
+            "n": 10484,
+            "approval_rate": 0.8298,
+            "default_rate_among_approved": 0.0814,
+            "observed_default_rate_all": 0.115,
+            "mean_pd": 0.1107,
+            "auc": 0.7413
+          },
+          {
+            "group": "31-45",
+            "n": 24641,
+            "approval_rate": 0.8671,
+            "default_rate_among_approved": 0.063,
+            "observed_default_rate_all": 0.0877,
+            "mean_pd": 0.0876,
+            "auc": 0.769
+          },
+          {
+            "group": "46-60",
+            "n": 20548,
+            "approval_rate": 0.8509,
+            "default_rate_among_approved": 0.054,
+            "observed_default_rate_all": 0.0645,
+            "mean_pd": 0.0646,
+            "auc": 0.7455
+          }
+        ],
+        "gap_pts": 3.73,
+        "adverse_impact_ratio": 0.957,
+        "gap_pts_ci95": [
+          2.79,
+          4.52
+        ]
+      }
+    },
+    "current_rules_only": {
+      "gender": {
+        "groups": [
+          {
+            "group": "F",
+            "n": 40345,
+            "approval_rate": 0.8259,
+            "default_rate_among_approved": 0.0743,
+            "observed_default_rate_all": 0.0696,
+            "mean_pd": 0.0737,
+            "auc": 0.7618
+          },
+          {
+            "group": "M",
+            "n": 21158,
+            "approval_rate": 0.9123,
+            "default_rate_among_approved": 0.1051,
+            "observed_default_rate_all": 0.102,
+            "mean_pd": 0.0928,
+            "auc": 0.7544
+          }
+        ],
+        "gap_pts": 8.64,
+        "adverse_impact_ratio": 0.905,
+        "gap_pts_ci95": [
+          8.11,
+          9.21
+        ]
+      },
+      "age_band": {
+        "groups": [
+          {
+            "group": "21-30",
+            "n": 10484,
+            "approval_rate": 0.9818,
+            "default_rate_among_approved": 0.1158,
+            "observed_default_rate_all": 0.115,
+            "mean_pd": 0.1107,
+            "auc": 0.7413
+          },
+          {
+            "group": "31-45",
+            "n": 24641,
+            "approval_rate": 0.97,
+            "default_rate_among_approved": 0.0881,
+            "observed_default_rate_all": 0.0877,
+            "mean_pd": 0.0876,
+            "auc": 0.769
+          },
+          {
+            "group": "46-60",
+            "n": 20548,
+            "approval_rate": 0.8968,
+            "default_rate_among_approved": 0.0656,
+            "observed_default_rate_all": 0.0645,
+            "mean_pd": 0.0646,
+            "auc": 0.7455
+          }
+        ],
+        "gap_pts": 8.5,
+        "adverse_impact_ratio": 0.913,
+        "gap_pts_ci95": [
+          8.0,
+          8.91
+        ]
+      }
+    },
+    "proxy_test": {
+      "gender_from_features_auc": 0.7364,
+      "top_predictive_features": [
+        "AMT_INCOME_TOTAL",
+        "YEARS_EMPLOYED",
+        "EXT_SOURCE_1"
+      ],
+      "reading": "0.5 = features carry no gender signal; the higher, the stronger the proxy risk."
+    },
+    "note": "Gap = max - min approval rate in percentage points. Measured, not a fairness certification. Gender is not a model feature; age is, and is also bounded by a hard rule."
+  },
+  "explainability": {
+    "mean_abs_shap": {
+      "EXT_SOURCE_MEAN": 0.53329998254776,
+      "CREDIT_TERM": 0.24459999799728394,
+      "EXT_SOURCE_3": 0.17100000381469727,
+      "YEARS_EMPLOYED": 0.1307000070810318,
+      "EXT_SOURCE_1": 0.12399999797344208,
+      "CREDIT_GOODS_RATIO": 0.12330000102519989,
+      "AGE_YEARS": 0.10849999636411667,
+      "EXT_SOURCE_2": 0.08429999649524689,
+      "ANNUITY_INCOME_RATIO": 0.0786999985575676,
+      "AMT_ANNUITY": 0.07119999825954437,
+      "AMT_CREDIT": 0.06729999929666519,
+      "AMT_INCOME_TOTAL": 0.06689999997615814,
+      "CREDIT_INCOME_RATIO": 0.06390000134706497,
+      "MISSING_COUNT": 0.01080000028014183
+    },
+    "top_reason_frequency": {
+      "EXT_SOURCE_MEAN": 0.261,
+      "CREDIT_TERM": 0.1327,
+      "AGE_YEARS": 0.1037,
+      "YEARS_EMPLOYED": 0.095,
+      "CREDIT_GOODS_RATIO": 0.0857,
+      "ANNUITY_INCOME_RATIO": 0.0683,
+      "EXT_SOURCE_3": 0.0547,
+      "EXT_SOURCE_1": 0.0497,
+      "AMT_INCOME_TOTAL": 0.0497,
+      "AMT_CREDIT": 0.038,
+      "CREDIT_INCOME_RATIO": 0.0337,
+      "AMT_ANNUITY": 0.021,
+      "EXT_SOURCE_2": 0.0067,
+      "MISSING_COUNT": 0.0003
+    }
+  },
+  "drift_check": {
+    "pd_psi_val_vs_test": 0.0003,
+    "feature_psi_train_vs_test": {
+      "EXT_SOURCE_MEAN": 0.0001,
+      "AGE_YEARS": 0.0001,
+      "CREDIT_INCOME_RATIO": 0.0001,
+      "ANNUITY_INCOME_RATIO": 0.0004,
+      "AMT_INCOME_TOTAL": 0.0001,
+      "YEARS_EMPLOYED": 0.0001
+    },
+    "status": "stable"
+  }
+}
