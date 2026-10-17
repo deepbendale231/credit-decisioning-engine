@@ -120,7 +120,7 @@ def create_app(
 ) -> FastAPI:
     """Tests pass an engine; in production the engine is loaded lazily from MODEL_PATH."""
     app = FastAPI(
-        title="Loan Decisioning Engine",
+        title="Credit Decisioning Engine",
         version="2.0.0",
         description="Eligibility rules -> calibrated PD model -> policy decision with SHAP reason codes. "
         "Bureau and e-KYC are mock adapters. Demonstration project, not for real lending decisions.",

@@ -1,5 +1,5 @@
 [project]
-name = "loan-decisioning-engine"
+name = "credit-decisioning-engine"
 version = "2.0.0"
 description = "Eligibility rules + calibrated default-risk model + policy engine with SHAP reason codes, an API, drift monitoring and a fairness audit"
 readme = "README.md"

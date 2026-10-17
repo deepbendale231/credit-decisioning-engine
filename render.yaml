@@ -1,7 +1,7 @@
 # Render blueprint: New + > Blueprint, point it at this repo. Run `make pipeline` and commit models/ + reports/ first.
 services:
   - type: web
-    name: loan-decisioning-engine
+    name: credit-decisioning-engine
     runtime: docker
     plan: free
     healthCheckPath: /health

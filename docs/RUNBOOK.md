@@ -5,7 +5,7 @@
 make pipeline          # real data -> reports/ + models/model.joblib (new model_version)
 make results           # README block from metrics.json
 make test lint
-docker build -t loan-decisioning-engine . && docker run -p 8000:8000 loan-decisioning-engine
+docker build -t credit-decisioning-engine . && docker run -p 8000:8000 credit-decisioning-engine
 ```
 Check `reports/MODEL_CARD.md`: AUC CI, calibration (ECE), fairness gaps, `drift_check.status`. Do not ship a model whose test AUC CI overlaps the logistic baseline without saying so.
 

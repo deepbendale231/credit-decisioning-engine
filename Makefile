@@ -49,7 +49,7 @@ monitor:         ## PSI drift report from the audit log
 	$(PY) -m src.monitor
 
 docker:          ## build the image (run `make pipeline` first so models/ and reports/ exist)
-	docker build -t loan-decisioning-engine .
+	docker build -t credit-decisioning-engine .
 
 compose:         ## api on :8000 and demo on :8501
 	docker compose up --build

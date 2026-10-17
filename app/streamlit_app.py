@@ -25,7 +25,7 @@ REPORTS = ROOT / "reports"
 BLUE, ORANGE, INK = "#2a78d6", "#eb6834", "#52514e"
 DECISION_COLOR = {"APPROVE": "#1baf7a", "REFER": "#eda100", "DECLINE": "#e34948"}
 
-st.set_page_config(page_title="Loan Decisioning Engine", page_icon="🏦", layout="wide")
+st.set_page_config(page_title="Credit Decisioning Engine", page_icon="🏦", layout="wide")
 
 PRESETS = {
     "Strong applicant": dict(
@@ -72,7 +72,7 @@ def load_scores():
     )
 
 
-st.title("🏦 Loan Decisioning Engine")
+st.title("🏦 Credit Decisioning Engine")
 st.caption(
     "Hard eligibility rules → calibrated default-risk model → policy decision with SHAP reason codes. Mock bureau and e-KYC. Not for real lending."
 )

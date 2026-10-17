@@ -17,6 +17,7 @@ from pathlib import Path
 from .narrative import insight_sentence, pct, policy_rows, resume_line, rng, sentences
 
 START, END = "<!-- RESULTS:START -->", "<!-- RESULTS:END -->"
+H_START, H_END = "<!-- HERO:START -->", "<!-- HERO:END -->"
 
 
 def readme_block(m: dict) -> str:
@@ -71,6 +72,26 @@ def readme_block(m: dict) -> str:
     return "\n".join(lines)
 
 
+def hero_block(m: dict) -> str:
+    """Four headline numbers for the top of the README, from the same metrics.json as everything else."""
+    c, d, f = m["comparison"], m["discrimination_test"], m["funnel"]
+    cut = c["default_cut_vs_tuned_rules_same_approval_pts"]
+    cells = [
+        ("ROC-AUC (held-out test)", f"{d['auc']}"),
+        ("Default rate at the same approval rate", f"{cut['point']} pts lower than the best tuned rules"),
+    ]
+    if c["tuned_rules_only_same_target"]["target_reached_on_validation"]:
+        up = c["approval_uplift_vs_tuned_rules_pts"]
+        cells.append(("Approvals at the same default rate", f"+{up['point']} pts vs the best tuned rules"))
+    if f:
+        cells.append(("Prior applications analysed", f"{f['total_rows_k']:,}K"))
+    head = "| " + " | ".join(a for a, _ in cells) + " |"
+    sep = "|" + "---|" * len(cells)
+    row = "| " + " | ".join(f"**{b}**" for _, b in cells) + " |"
+    warn = "" if m["meta"]["resume_safe"] else "> **SYNTHETIC DATA: do not quote.**\n\n"
+    return f"{warn}{head}\n{sep}\n{row}"
+
+
 def resume_placeholders(m: dict) -> str:
     c, f = m["comparison"], m["funnel"]
     out = ["Resume placeholders (from reports/metrics.json):"]
@@ -110,6 +131,10 @@ def main(argv=None) -> int:
             print(f"README is missing {START} / {END} markers", file=sys.stderr)
             return 1
         new = re.sub(re.escape(START) + r".*?" + re.escape(END), lambda _: f"{START}\n{block}\n{END}", text, flags=re.S)
+        if H_START in new and H_END in new:
+            new = re.sub(
+                re.escape(H_START) + r".*?" + re.escape(H_END), lambda _: f"{H_START}\n{hero_block(m)}\n{H_END}", new, flags=re.S
+            )
         args.readme.write_text(new)
         print(f"README results block updated from {args.metrics}")
     else:
