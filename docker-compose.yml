@@ -1,0 +1,11 @@
+services:
+  api:
+    build: .
+    ports: ["8000:8000"]
+    environment:
+      API_KEYS: ${API_KEYS:-}          # set to require X-API-Key on /decision
+    volumes: ["./logs:/app/logs"]      # audit log persists on the host
+  ui:
+    build: .
+    command: ["streamlit", "run", "app/streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+    ports: ["8501:8501"]
