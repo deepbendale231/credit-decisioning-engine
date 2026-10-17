@@ -160,7 +160,7 @@ python -m src.monitor --log logs/decisions.jsonl   # PSI on score and key featur
 
 | | |
 |---|---|
-| Tests | 98 tests: unit, property-based (Hypothesis), API, pipeline determinism, train/serve parity, a real-schema CSV run |
+| Tests | 99 tests: unit, property-based (Hypothesis), API, pipeline determinism, train/serve parity, a real-schema CSV run |
 | CI | lint (ruff), tests with 90% coverage gate, synthetic pipeline + live API smoke test, Docker build |
 | Reproducibility | fixed seeds, stratified split, versions and git SHA recorded in `metrics.json` |
 | Data validation | schema, target, duplicates, ranges checked before training; a data-quality report is saved |

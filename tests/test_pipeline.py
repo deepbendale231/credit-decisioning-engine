@@ -70,11 +70,29 @@ def test_pipeline_is_deterministic(run_a, tmp_path):
 def test_results_table_refuses_to_publish_synthetic_numbers(run_a, tmp_path):
     out, _ = run_a
     readme = tmp_path / "README.md"
-    readme.write_text("# x\n<!-- RESULTS:START -->\nSTALE-SENTINEL\n<!-- RESULTS:END -->\n")
+    readme.write_text(
+        "# x\n<!-- HERO:START -->\nOLD-HERO\n<!-- HERO:END -->\n<!-- RESULTS:START -->\nSTALE-SENTINEL\n<!-- RESULTS:END -->\n"
+    )
     args = ["--metrics", str(out / "a" / "metrics.json"), "--readme", str(readme), "--write-readme"]
     assert results_main(args) == 1 and "STALE-SENTINEL" in readme.read_text()
     assert results_main(args + ["--allow-synthetic"]) == 0
     assert "SYNTHETIC DATA" in readme.read_text() and "STALE-SENTINEL" not in readme.read_text()
+    assert "OLD-HERO" not in readme.read_text() and "ROC-AUC (held-out test)" in readme.read_text()
+
+
+def test_hero_block_reports_only_what_the_comparison_supports(run_a):
+    """The headline row drops the approval-uplift cell when no rules-only policy reached the target, and the funnel cell when absent."""
+    import copy
+
+    from src.results_table import hero_block
+
+    _, m = run_a
+    m = copy.deepcopy(m)
+    m["comparison"]["tuned_rules_only_same_target"]["target_reached_on_validation"] = False
+    m["funnel"] = None
+    row = hero_block(m)
+    assert "Approvals at the same default rate" not in row and "Prior applications analysed" not in row
+    assert "ROC-AUC (held-out test)" in row and "lower than the best tuned rules" in row
 
 
 def test_real_data_path_reads_kaggle_schema_csvs(tmp_path):
