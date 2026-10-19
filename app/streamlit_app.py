@@ -163,14 +163,16 @@ with tab_dec:
                 st.write(f"• {r['reason']}")
             feats = pd.DataFrame([out["features"]])[FEATURE_COLUMNS]
             sv = engine.bundle.shap_matrix(feats)[0]
-            shap_df = pd.DataFrame({"feature": FEATURE_COLUMNS, "shap": sv}).sort_values("shap")
+            # Top 8 by |SHAP|, biggest risk driver first; a fixed step per row so Altair never drops a label.
+            shap_df = pd.DataFrame({"feature": FEATURE_COLUMNS, "shap": sv})
+            shap_df = shap_df.loc[shap_df["shap"].abs().nlargest(8).index].sort_values("shap", ascending=False)
             shap_df["effect"] = np.where(shap_df["shap"] > 0, "raises risk", "lowers risk")
             st.altair_chart(
                 alt.Chart(shap_df)
                 .mark_bar()
                 .encode(
                     x=alt.X("shap:Q", title="SHAP contribution to log-odds of default"),
-                    y=alt.Y("feature:N", sort=None, title=None, axis=alt.Axis(labelLimit=220)),
+                    y=alt.Y("feature:N", sort=None, title=None, axis=alt.Axis(labelLimit=220, labelOverlap=False)),
                     color=alt.Color(
                         "effect:N",
                         scale=alt.Scale(domain=["raises risk", "lowers risk"], range=[ORANGE, BLUE]),
@@ -178,7 +180,7 @@ with tab_dec:
                     ),
                     tooltip=["feature", alt.Tooltip("shap:Q", format=".3f")],
                 )
-                .properties(height=300),
+                .properties(height=alt.Step(26), title="Top 8 SHAP drivers for this applicant"),
                 use_container_width=True,
             )
         with st.expander("Rule checks, bureau and KYC"):
